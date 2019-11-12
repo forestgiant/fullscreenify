@@ -1,24 +1,99 @@
 package fullscreenify
 
 import (
+	"flag"
 	"fmt"
 	"testing"
 )
 
+var verbose = flag.Bool("verbose", false, "Add verbosity")
+
 func TestYoutube(t *testing.T) {
-	tests := [][]string{
-		[]string{"https://www.youtube.com/watch?v=ys0HyevZpQg&t=1849s", "https://www.youtube.com/embed/ys0HyevZpQg?rel=0&autoplay=1"},
-		[]string{"https://www.youtube.com/watch?v=ys0HyevZpQg", "https://www.youtube.com/embed/ys0HyevZpQg?rel=0&autoplay=1"},
-		[]string{"https://youtu.be/ys0HyevZpQg", "https://www.youtube.com/embed/ys0HyevZpQg?rel=0&autoplay=1"},
-		[]string{"https://youtu.be/IyzdDu7ZHz8?autoplay=1", "https://www.youtube.com/embed/IyzdDu7ZHz8?rel=0&autoplay=1"},
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			"Test youtube v= with parameter",
+			"https://www.youtube.com/watch?v=ys0HyevZpQg&t=1849s",
+			"https://www.youtube.com/embed/ys0HyevZpQg?rel=0&autoplay=1",
+		},
+		{
+			"Test youtube v=",
+			"https://www.youtube.com/watch?v=ys0HyevZpQg",
+			"https://www.youtube.com/embed/ys0HyevZpQg?rel=0&autoplay=1",
+		},
+		{
+			"Test youtu.be",
+			"https://youtu.be/ys0HyevZpQg",
+			"https://www.youtube.com/embed/ys0HyevZpQg?rel=0&autoplay=1",
+		},
+		{
+			"Test yout.be w/ parameter",
+			"https://youtu.be/IyzdDu7ZHz8?autoplay=1",
+			"https://www.youtube.com/embed/IyzdDu7ZHz8?rel=0&autoplay=1",
+		},
 	}
 
-	for i := range tests {
-		r := Fullscreenify(tests[i][0])
-		if r == tests[i][1] {
-			fmt.Printf("t%d passed :)\n", i)
+	for _, test := range tests {
+		r := Fullscreenify(test.input)
+		if r == test.expected {
+			if *verbose {
+				fmt.Printf("%s passed\n", test.name)
+			}
 		} else {
-			t.Fatalf("t%d failed\n", i)
+			t.Fatalf("%s failed\n", test.name)
+		}
+	}
+}
+
+func TestGiphy(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			"Test giphy",
+			"https://giphy.com/gifs/positive-vibes-l41m0MZzfp7yEND1K",
+			"https://giphy.com/gifs/positive-vibes-l41m0MZzfp7yEND1K/fullscreen",
+		},
+		{
+			"Test giphy fullscreen",
+			"https://giphy.com/gifs/positive-vibes-l41m0MZzfp7yEND1K/fullscreen",
+			"https://giphy.com/gifs/positive-vibes-l41m0MZzfp7yEND1K/fullscreen",
+		},
+		{
+			"Test giphy tile",
+			"https://giphy.com/gifs/positive-vibes-l41m0MZzfp7yEND1K/tile",
+			"https://giphy.com/gifs/positive-vibes-l41m0MZzfp7yEND1K/tile",
+		},
+		{
+			"Test giphy media",
+			"https://media.giphy.com/media/l41m0MZzfp7yEND1K/giphy.gif",
+			"https://media.giphy.com/media/l41m0MZzfp7yEND1K/giphy.gif",
+		},
+		{
+			"Test giphy html5",
+			"https://giphy.com/gifs/l41m0MZzfp7yEND1K/html5",
+			"https://giphy.com/gifs/l41m0MZzfp7yEND1K/html5",
+		},
+		{
+			"Test gph.is",
+			"http://gph.is/1CiFXmZ",
+			"http://gph.is/1CiFXmZ",
+		},
+	}
+
+	for _, test := range tests {
+		r := Fullscreenify(test.input)
+		if r == test.expected {
+			if *verbose {
+				fmt.Printf("%s passed\n", test.name)
+			}
+		} else {
+			t.Fatalf("%s failed\n", test.name)
 		}
 	}
 }

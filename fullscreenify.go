@@ -26,18 +26,38 @@ func youtuDotBe(urlString string) string {
 	return fmt.Sprintf(template, uURL.Path[1:])
 }
 
+func giphy(urlString string) string {
+	template := "https://giphy.com%s/fullscreen"
+	uURL, err := url.Parse(urlString)
+	if err != nil {
+		return ""
+	}
+	pathParts := strings.Split(uURL.Path, "/")
+	lastPart := pathParts[len(pathParts)-1]
+	if lastPart == "fullscreen" || lastPart == "tile" || lastPart == "html5" {
+		return urlString
+	}
+
+	return fmt.Sprintf(template, uURL.Path)
+}
+
 func init() {
 	parsers = make(map[string]Parser)
 	parsers["www.youtube.com"] = youtube
 	parsers["youtu.be"] = youtuDotBe
+	parsers["giphy.com"] = giphy
 }
 
+//Fullscreenify given a url return the fullscreened version of that URL
 func Fullscreenify(urlStr string) string {
-	tURL, err := url.Parse(urlStr)
+	uURL, err := url.Parse(urlStr)
 	if err != nil {
 		return urlStr
 	}
-	//TODO: make sure hostname is in the map
-	//TODO: if not in the map or error return the original
-	return parsers[tURL.Hostname()](urlStr)
+
+	if parser, ok := parsers[uURL.Hostname()]; ok {
+		return parser(urlStr)
+	} else {
+		return urlStr
+	}
 }
