@@ -97,3 +97,33 @@ func TestGiphy(t *testing.T) {
 		}
 	}
 }
+
+func TestVimeo(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			"Test vimeo",
+			"https://vimeo.com/76979871",
+			"https://player.vimeo.com/video/76979871?autoplay=1&loop=1&autopause=0",
+		},
+		{
+			"Test vimeo fullscreen",
+			"https://player.vimeo.com/video/76979871?autoplay=1&loop=1&autopause=0",
+			"https://player.vimeo.com/video/76979871?autoplay=1&loop=1&autopause=0",
+		},
+	}
+
+	for _, test := range tests {
+		r := Fullscreenify(test.input)
+		if r == test.expected {
+			if *verbose {
+				fmt.Printf("%s passed\n", test.name)
+			}
+		} else {
+			t.Fatalf("%s failed\n", test.name)
+		}
+	}
+}

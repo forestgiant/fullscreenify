@@ -41,11 +41,21 @@ func giphy(urlString string) string {
 	return fmt.Sprintf(template, uURL.Path)
 }
 
+func vimeo(urlString string) string {
+	template := "https://player.vimeo.com/video/%s?autoplay=1&loop=1&autopause=0"
+	uURL, err := url.Parse(urlString)
+	if err != nil {
+		return ""
+	}
+	return fmt.Sprintf(template, uURL.Path[1:])
+}
+
 func init() {
 	parsers = make(map[string]Parser)
 	parsers["www.youtube.com"] = youtube
 	parsers["youtu.be"] = youtuDotBe
 	parsers["giphy.com"] = giphy
+	parsers["vimeo.com"] = vimeo
 }
 
 //Fullscreenify given a url return the fullscreened version of that URL
