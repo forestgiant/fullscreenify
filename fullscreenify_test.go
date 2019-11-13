@@ -37,7 +37,7 @@ func TestYoutube(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		r := Fullscreenify(test.input)
+		r := ToFullscreen(test.input)
 		if r == test.expected {
 			if *verbose {
 				fmt.Printf("%s passed\n", test.name)
@@ -102,7 +102,7 @@ func TestGiphy(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		r := Fullscreenify(test.input)
+		r := ToFullscreen(test.input)
 		if r == test.expected {
 			if *verbose {
 				fmt.Printf("%s passed\n", test.name)
@@ -132,7 +132,7 @@ func TestVimeo(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		r := Fullscreenify(test.input)
+		r := ToFullscreen(test.input)
 		if r == test.expected {
 			if *verbose {
 				fmt.Printf("%s passed\n", test.name)

@@ -6,9 +6,9 @@ import (
 	"strings"
 )
 
-type Parser func(string) string
+type parser func(string) string
 
-var parsers map[string]Parser
+var parsers map[string]parser
 
 func youtube(urlString string) string {
 	template := "https://www.youtube.com/embed/%s?rel=0&autoplay=1"
@@ -68,7 +68,7 @@ func vimeo(urlString string) string {
 }
 
 func init() {
-	parsers = make(map[string]Parser)
+	parsers = make(map[string]parser)
 	parsers["www.youtube.com"] = youtube
 	parsers["youtu.be"] = youtuDotBe
 	parsers["giphy.com"] = giphy
@@ -76,8 +76,8 @@ func init() {
 	parsers["vimeo.com"] = vimeo
 }
 
-//Fullscreenify given a url return the fullscreened version of that URL
-func Fullscreenify(urlStr string) string {
+//ToFullscreen given a url return the fullscreened version of that URL
+func ToFullscreen(urlStr string) string {
 	uURL, err := url.Parse(urlStr)
 	if err != nil {
 		return urlStr
