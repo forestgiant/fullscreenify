@@ -72,7 +72,7 @@ func TestGiphy(t *testing.T) {
 		{
 			"Test giphy media",
 			"https://media.giphy.com/media/l41m0MZzfp7yEND1K/giphy.gif",
-			"https://media.giphy.com/media/l41m0MZzfp7yEND1K/giphy.gif",
+			"https://giphy.com/gifs/l41m0MZzfp7yEND1K/fullscreen",
 		},
 		{
 			"Test giphy html5",

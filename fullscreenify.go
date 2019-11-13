@@ -41,6 +41,18 @@ func giphy(urlString string) string {
 	return fmt.Sprintf(template, uURL.Path)
 }
 
+func giphyMedia(urlString string) string {
+	template := "https://giphy.com/gifs/%s/fullscreen"
+	uURL, err := url.Parse(urlString)
+	if err != nil {
+		return ""
+	}
+	pathParts := strings.Split(uURL.Path, "/")
+	penultimatePart := pathParts[len(pathParts)-2]
+
+	return fmt.Sprintf(template, penultimatePart)
+}
+
 func vimeo(urlString string) string {
 	template := "https://player.vimeo.com/video/%s?autoplay=1&loop=1&autopause=0"
 	uURL, err := url.Parse(urlString)
@@ -55,6 +67,7 @@ func init() {
 	parsers["www.youtube.com"] = youtube
 	parsers["youtu.be"] = youtuDotBe
 	parsers["giphy.com"] = giphy
+	parsers["media.giphy.com"] = giphyMedia
 	parsers["vimeo.com"] = vimeo
 }
 
