@@ -75,9 +75,24 @@ func TestGiphy(t *testing.T) {
 			"https://giphy.com/gifs/l41m0MZzfp7yEND1K/fullscreen",
 		},
 		{
+			"Test giphy media social",
+			"https://media.giphy.com/media/t7Rl9ag98MDRXsre46/giphy-downsized-large.gif",
+			"https://giphy.com/gifs/t7Rl9ag98MDRXsre46/fullscreen",
+		},
+		{
+			"Test giphy media mp4",
+			"https://media.giphy.com/media/t7Rl9ag98MDRXsre46/giphy.mp4",
+			"https://giphy.com/gifs/t7Rl9ag98MDRXsre46/fullscreen",
+		},
+		{
+			"Test giphy media small",
+			"https://media.giphy.com/media/t7Rl9ag98MDRXsre46/200w_d.gif",
+			"https://giphy.com/gifs/t7Rl9ag98MDRXsre46/fullscreen",
+		},
+		{
 			"Test giphy html5",
 			"https://giphy.com/gifs/l41m0MZzfp7yEND1K/html5",
-			"https://giphy.com/gifs/l41m0MZzfp7yEND1K/html5",
+			"https://giphy.com/gifs/l41m0MZzfp7yEND1K/fullscreen",
 		},
 		{
 			"Test gph.is",

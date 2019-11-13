@@ -34,8 +34,13 @@ func giphy(urlString string) string {
 	}
 	pathParts := strings.Split(uURL.Path, "/")
 	lastPart := pathParts[len(pathParts)-1]
-	if lastPart == "fullscreen" || lastPart == "tile" || lastPart == "html5" {
+	if lastPart == "fullscreen" || lastPart == "tile" {
 		return urlString
+	}
+	if lastPart == "html5" {
+		template := "https://giphy.com/gifs/%s/fullscreen"
+		penultimatePart := pathParts[len(pathParts)-2]
+		return fmt.Sprintf(template, penultimatePart)
 	}
 
 	return fmt.Sprintf(template, uURL.Path)
