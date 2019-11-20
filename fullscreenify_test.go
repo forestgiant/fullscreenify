@@ -142,3 +142,33 @@ func TestVimeo(t *testing.T) {
 		}
 	}
 }
+
+func TestTwitch(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			"Test twitch",
+			"https://www.twitch.tv/ourlifewithewe",
+			"https://player.twitch.tv/?channel=ourlifewithewe",
+		},
+		{
+			"Test vimeo fullscreen",
+			"https://player.twitch.tv/?channel=ourlifewithewe",
+			"https://player.twitch.tv/?channel=ourlifewithewe",
+		},
+	}
+
+	for _, test := range tests {
+		r := ToFullscreen(test.input)
+		if r == test.expected {
+			if *verbose {
+				fmt.Printf("%s passed\n", test.name)
+			}
+		} else {
+			t.Fatalf("%s failed\n", test.name)
+		}
+	}
+}

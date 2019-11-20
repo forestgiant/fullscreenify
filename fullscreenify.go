@@ -67,6 +67,15 @@ func vimeo(urlString string) string {
 	return fmt.Sprintf(template, uURL.Path[1:])
 }
 
+func twitch(urlString string) string {
+	template := "https://player.twitch.tv/?channel=%s"
+	uURL, err := url.Parse(urlString)
+	if err != nil {
+		return ""
+	}
+	return fmt.Sprintf(template, uURL.Path[1:])
+}
+
 func init() {
 	parsers = make(map[string]parser)
 	parsers["www.youtube.com"] = youtube
@@ -74,6 +83,7 @@ func init() {
 	parsers["giphy.com"] = giphy
 	parsers["media.giphy.com"] = giphyMedia
 	parsers["vimeo.com"] = vimeo
+	parsers["www.twitch.tv"] = twitch
 }
 
 //ToFullscreen given a url return the fullscreened version of that URL
